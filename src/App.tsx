@@ -1,7 +1,5 @@
-import './App.css';
-
 function App() {
-  return <div className="App">vite + react + typescript</div>;
+  return <div className="App">vite</div>;
 }
 
 export default App;

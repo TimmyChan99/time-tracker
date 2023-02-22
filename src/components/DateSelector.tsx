@@ -9,7 +9,7 @@ type DateType = {
 const dateConverter = (date: string) => {
   const dateInput = new Date(date);
   const day =
-    dateInput.getDay() > 9 ? dateInput.getDay() : `0${dateInput.getDay()}`;
+    dateInput.getDate() > 9 ? dateInput.getDate() : `0${dateInput.getDate()}`;
   const month =
     dateInput.getMonth() + 1 > 9
       ? dateInput.getMonth() + 1
@@ -18,23 +18,44 @@ const dateConverter = (date: string) => {
   return `${year}-${month}-${day}`;
 };
 
+// Set date and day from input. Example => date format: 21 February 2023, day format: Wednesday
+const setDateandDay = (date: string) => {
+  const dateInput = new Date(date);
+  const dateString = dateInput.toLocaleDateString('en-GB', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  const day = dateInput.toLocaleString('default', { weekday: 'long' });
+  return { dateString, day };
+};
+
 function DateSelector() {
   const [date, setDate] = useState<DateType>({
     date: '',
     day: '',
   });
+
+  // Collect date and day from input
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const dateInput = new Date(e.target.value);
-    const dateString = dateInput.toLocaleDateString('en-GB', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-    const day = dateInput.toLocaleString('default', { weekday: 'long' });
+    const { dateString, day } = setDateandDay(e.target.value);
     setDate({ date: dateString, day });
   };
+
+  // Navigate to next and previous dates
+  const handleDateNavigation = (action: string) => {
+    const currentDate = new Date(date.date);
+    const navigate = action === 'next' ? 1 : -1;
+    currentDate.setDate(currentDate.getDate() + navigate);
+    const { dateString, day } = setDateandDay(currentDate.toString());
+    setDate({ date: dateString, day });
+  };
+
   return (
     <div>
+      <button type="button" onClick={() => handleDateNavigation('prev')}>
+        prev
+      </button>
       <input
         type="date"
         name="date"
@@ -42,12 +63,7 @@ function DateSelector() {
         onChange={(e) => handleDateChange(e)}
         required
       />
-      <button
-        type="button"
-        onClick={() => {
-          console.log('clicked');
-        }}
-      >
+      <button type="button" onClick={() => handleDateNavigation('next')}>
         next
       </button>
       <div>{date.date}</div>

@@ -1,10 +1,11 @@
 import DateRow from './components/DateRow';
+import TrackerProvider from './TrackerProvider';
 
 function App() {
   return (
-    <div className="App">
+    <TrackerProvider>
       <DateRow />
-    </div>
+    </TrackerProvider>
   );
 }
 

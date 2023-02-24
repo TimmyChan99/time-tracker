@@ -1,40 +1,25 @@
-import { useState } from 'react';
 import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
-
-type Tracker = {
-  date: string;
-  startTime: string;
-  endTime: string;
-  totalHours: number;
-  day: string;
-};
-
-const tracker = {
-  date: '',
-  startTime: '',
-  endTime: '',
-  totalHours: 0,
-  day: '',
-};
+import { useTracker } from '../TrackerProvider';
 
 function DateRow() {
-  const [traker, setTraker] = useState<Tracker>(tracker);
+  const { tracker } = useTracker();
+  const { totalHours } = tracker;
 
   return (
     <div>
       <DateSelector />
       <div>
         <span>start time</span>
-        <TimeSelector />
+        <TimeSelector time="startTime" />
       </div>
       <div>
         <span>end time</span>
-        <TimeSelector />
+        <TimeSelector time="endTime" />
       </div>
       <div>
         <span>total hours</span>
-        <span>{tracker.totalHours}</span>
+        <span>{totalHours}</span>
       </div>
     </div>
   );

@@ -1,9 +1,5 @@
-import { ChangeEvent, useState } from 'react';
-
-type DateType = {
-  date: string;
-  day: string;
-};
+import { ChangeEvent } from 'react';
+import { useTracker } from '../TrackerProvider';
 
 // yyyy-mm-dd format
 const dateConverter = (date: string) => {
@@ -30,25 +26,25 @@ const setDateandDay = (date: string) => {
   return { dateString, day };
 };
 
+// DateSelector component
 function DateSelector() {
-  const [date, setDate] = useState<DateType>({
-    date: '',
-    day: '',
-  });
+  const { tracker, updateTracker } = useTracker();
 
   // Collect date and day from input
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { dateString, day } = setDateandDay(e.target.value);
-    setDate({ date: dateString, day });
+    updateTracker('date', dateString);
+    updateTracker('day', day);
   };
 
   // Navigate to next and previous dates
   const handleDateNavigation = (action: string) => {
-    const currentDate = new Date(date.date);
+    const currentDate = new Date(tracker.date);
     const navigate = action === 'next' ? 1 : -1;
     currentDate.setDate(currentDate.getDate() + navigate);
     const { dateString, day } = setDateandDay(currentDate.toString());
-    setDate({ date: dateString, day });
+    updateTracker('date', dateString);
+    updateTracker('day', day);
   };
 
   return (
@@ -59,15 +55,15 @@ function DateSelector() {
       <input
         type="date"
         name="date"
-        value={dateConverter(date.date)}
+        value={dateConverter(tracker.date)}
         onChange={(e) => handleDateChange(e)}
         required
       />
       <button type="button" onClick={() => handleDateNavigation('next')}>
         next
       </button>
-      <div>{date.date}</div>
-      <div>{date.day}</div>
+      <div>{tracker.date}</div>
+      <div>{tracker.day}</div>
     </div>
   );
 }

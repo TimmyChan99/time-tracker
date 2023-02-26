@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTracker } from '../TrackerProvider';
 
 // yyyy-mm-dd format
@@ -22,29 +22,37 @@ const setDateandDay = (date: string) => {
     day: 'numeric',
     year: 'numeric',
   });
-  const day = dateInput.toLocaleString('default', { weekday: 'long' });
-  return { dateString, day };
+  const dayString = dateInput.toLocaleString('default', { weekday: 'long' });
+  return { dateString, dayString };
 };
 
 // DateSelector component
-function DateSelector() {
-  const { tracker, updateTracker } = useTracker();
+function DateSelector({
+  date,
+  day,
+  id,
+}: {
+  date: string;
+  day: string;
+  id: string;
+}) {
+  const { updateTracker } = useTracker();
 
   // Collect date and day from input
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { dateString, day } = setDateandDay(e.target.value);
-    updateTracker('date', dateString);
-    updateTracker('day', day);
+    const { dateString, dayString } = setDateandDay(e.target.value);
+    updateTracker('date', dateString, id);
+    updateTracker('day', dayString, id);
   };
 
   // Navigate to next and previous dates
   const handleDateNavigation = (action: string) => {
-    const currentDate = new Date(tracker.date);
+    const currentDate = new Date(date);
     const navigate = action === 'next' ? 1 : -1;
     currentDate.setDate(currentDate.getDate() + navigate);
-    const { dateString, day } = setDateandDay(currentDate.toString());
-    updateTracker('date', dateString);
-    updateTracker('day', day);
+    const { dateString, dayString } = setDateandDay(currentDate.toString());
+    updateTracker('date', dateString, id);
+    updateTracker('day', dayString, id);
   };
 
   return (
@@ -55,15 +63,15 @@ function DateSelector() {
       <input
         type="date"
         name="date"
-        value={dateConverter(tracker.date)}
+        value={dateConverter(date)}
         onChange={(e) => handleDateChange(e)}
         required
       />
       <button type="button" onClick={() => handleDateNavigation('next')}>
         next
       </button>
-      <div>{tracker.date}</div>
-      <div>{tracker.day}</div>
+      <div>{date}</div>
+      <div>{day}</div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { doc, setDoc } from 'firebase/firestore';
-import React, { useContext, createContext, useState } from 'react';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 import uuid from 'react-uuid';
 import db from './firebase';
 
@@ -40,6 +40,17 @@ export const useTracker = () => useContext(TrackerContext);
 function TrackerProvider({ children }: { children: React.ReactNode }) {
   const [trackerList, setTrackerList] = useState<Tracker[]>([]);
 
+  // Get the tracker list from firebase
+  useEffect(() => {
+    const getTrackerList = async () => {
+      const trackersRef = collection(db, 'trackers');
+      const trackersSnapshot = await getDocs(trackersRef);
+      const trackers = trackersSnapshot.docs.map((snap) => snap.data());
+      setTrackerList([...trackers] as Tracker[]);
+    };
+    getTrackerList();
+  }, []);
+
   // add tracker to tracker list if tracker is not empty
   const addTracker = () => {
     const NewTracker = trackerInitialValue;
@@ -62,7 +73,6 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Store the tracker in firebase if it is not empty
-
   const addTrackerToFirebase = async (NewTracker: Tracker) => {
     if (
       NewTracker.id === '' ||

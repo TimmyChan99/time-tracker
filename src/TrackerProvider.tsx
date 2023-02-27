@@ -1,10 +1,13 @@
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useContext, createContext, useState } from 'react';
 import uuid from 'react-uuid';
+import db from './firebase';
 
 type TrackerContextType = {
   updateTracker: (key: string, value: string | number, id: string) => void;
   addTracker: () => void;
   trackerList: Tracker[];
+  addTrackerToFirebase: (NewTracker: Tracker) => void;
 };
 
 type Tracker = {
@@ -29,6 +32,7 @@ const TrackerContext = createContext<TrackerContextType>({
   updateTracker: () => {},
   trackerList: [],
   addTracker: () => {},
+  addTrackerToFirebase: () => {},
 });
 
 export const useTracker = () => useContext(TrackerContext);
@@ -43,13 +47,6 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
       ...prevTrackerList,
       { ...NewTracker, id: uuid() },
     ]);
-    // add to firebase
-    // if (  <== check if tracker is empty for firebase
-    //   NewTracker.date === '' ||
-    //   NewTracker.startTime === '' ||
-    //   NewTracker.endTime === ''
-    // )
-    //   return;
   };
 
   const updateTracker = (key: string, value: string | number, id: string) => {
@@ -64,8 +61,27 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  // Store the tracker in firebase if it is not empty
+
+  const addTrackerToFirebase = async (NewTracker: Tracker) => {
+    if (
+      NewTracker.date === '' ||
+      NewTracker.startTime === '' ||
+      NewTracker.endTime === ''
+    )
+      return;
+    const trackersRef = collection(db, 'trackers');
+    const docRef = await addDoc(trackersRef, NewTracker);
+    console.log('Document written with ID: ', docRef);
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const value = { updateTracker, addTracker, trackerList };
+  const value = {
+    updateTracker,
+    addTracker,
+    trackerList,
+    addTrackerToFirebase,
+  };
 
   return (
     <TrackerContext.Provider value={value}>{children}</TrackerContext.Provider>

@@ -1,9 +1,9 @@
-import React, { useContext, createContext, useState, useMemo } from 'react';
+import React, { useContext, createContext, useState } from 'react';
 import uuid from 'react-uuid';
 
 type TrackerContextType = {
-  updateTracker: (key: string, value: string, id: string) => void;
-  addTracker: (NewTracker: Tracker) => void;
+  updateTracker: (key: string, value: string | number, id: string) => void;
+  addTracker: () => void;
   trackerList: Tracker[];
 };
 
@@ -37,7 +37,8 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
   const [trackerList, setTrackerList] = useState<Tracker[]>([]);
 
   // add tracker to tracker list if tracker is not empty
-  const addTracker = (NewTracker = trackerInitialValue) => {
+  const addTracker = () => {
+    const NewTracker = trackerInitialValue;
     setTrackerList((prevTrackerList) => [
       ...prevTrackerList,
       { ...NewTracker, id: uuid() },
@@ -51,7 +52,7 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
     //   return;
   };
 
-  const updateTracker = (key: string, value: string, id: string) => {
+  const updateTracker = (key: string, value: string | number, id: string) => {
     setTrackerList((prevTrackerList) => {
       const updatedTrackerList = prevTrackerList.map((item) => {
         if (item.id === id) {

@@ -1,16 +1,28 @@
+import { useEffect } from 'react';
 import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
-import { Tracker } from '../TrackerProvider';
+import { Tracker, useTracker } from '../TrackerProvider';
 
 function DateRow({ tracker }: { tracker: Tracker }) {
+  const { updateTracker } = useTracker();
+
   // Calculate total hours
   const totalHours = () => {
     const startHour = +tracker.startTime;
     const endHour = +tracker.endTime;
     const total = endHour - startHour;
-    if (total < 0) return <span>{total + 24}</span>;
-    return <span>{total}</span>;
+    if (total < 0) {
+      updateTracker('totalHours', total + 24, tracker.id);
+    }
+    updateTracker('totalHours', total, tracker.id);
+    return tracker.totalHours;
   };
+
+  useEffect(() => {
+    if (tracker.startTime === '' || tracker.endTime === '') return;
+    totalHours();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tracker.startTime, tracker.endTime]);
 
   return (
     <div>
@@ -33,7 +45,7 @@ function DateRow({ tracker }: { tracker: Tracker }) {
       </div>
       <div>
         <span>total hours</span>
-        {totalHours ? totalHours() : <span>0</span>}
+        <span>{tracker.totalHours}</span>
       </div>
     </div>
   );

@@ -2,16 +2,20 @@ import DateRow from './components/DateRow';
 import { useTracker } from './TrackerProvider';
 
 function App() {
-  const { tracker, addTracker, trackerList } = useTracker();
+  const { addTracker, trackerList } = useTracker();
   const trackers = trackerList?.map((item) => (
     <li key={item.id}>
       <DateRow tracker={item} />
     </li>
   ));
+
   const hanldleClick = () => {
-    addTracker(tracker);
-    console.log(trackerList);
+    addTracker();
   };
+
+  const totalHours = trackerList.reduce((acc, item) => {
+    return acc + item.totalHours;
+  }, 0);
 
   return (
     <main>
@@ -23,13 +27,13 @@ function App() {
         <div>
           <p>
             <span>Total Day</span>
-            <span>days</span>
+            <span>{trackers.length} days</span>
           </p>
         </div>
         <div>
           <p>
             <span>Total Hours</span>
-            <span>Hours</span>
+            <span>{totalHours} Hours</span>
           </p>
         </div>
       </footer>

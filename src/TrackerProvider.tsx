@@ -72,8 +72,7 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
     )
       return;
     const trackersRef = doc(db, 'trackers', NewTracker.id);
-    const docRef = await setDoc(trackersRef, NewTracker);
-    console.log('Document written with ID: ', docRef);
+    await setDoc(trackersRef, NewTracker);
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values

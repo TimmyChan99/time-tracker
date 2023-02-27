@@ -13,11 +13,11 @@ function DateRow({ tracker }: { tracker: Tracker }) {
     const total = endHour - startHour;
     if (total < 0) {
       updateTracker('totalHours', total + 24, tracker.id);
-      addTrackerToFirebase(tracker);
+      addTrackerToFirebase({ ...tracker, totalHours: total + 24 });
       return;
     }
     updateTracker('totalHours', total, tracker.id);
-    addTrackerToFirebase(tracker);
+    addTrackerToFirebase({ ...tracker, totalHours: total });
   };
 
   useEffect(() => {

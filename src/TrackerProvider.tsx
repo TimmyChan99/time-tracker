@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import React, { useContext, createContext, useState } from 'react';
 import uuid from 'react-uuid';
 import db from './firebase';
@@ -65,13 +65,14 @@ function TrackerProvider({ children }: { children: React.ReactNode }) {
 
   const addTrackerToFirebase = async (NewTracker: Tracker) => {
     if (
+      NewTracker.id === '' ||
       NewTracker.date === '' ||
       NewTracker.startTime === '' ||
       NewTracker.endTime === ''
     )
       return;
-    const trackersRef = collection(db, 'trackers');
-    const docRef = await addDoc(trackersRef, NewTracker);
+    const trackersRef = doc(db, 'trackers', NewTracker.id);
+    const docRef = await setDoc(trackersRef, NewTracker);
     console.log('Document written with ID: ', docRef);
   };
 

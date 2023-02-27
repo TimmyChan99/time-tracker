@@ -13,9 +13,9 @@ function DateRow({ tracker }: { tracker: Tracker }) {
     const total = endHour - startHour;
     if (total < 0) {
       updateTracker('totalHours', total + 24, tracker.id);
+      return;
     }
     updateTracker('totalHours', total, tracker.id);
-    return tracker.totalHours;
   };
 
   useEffect(() => {

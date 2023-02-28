@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
 import { Tracker, useTracker } from '../TrackerProvider';
+import { DateRowContainer } from '../styles/main.style';
 
 function DateRow({ tracker }: { tracker: Tracker }) {
   const { updateTracker, addTrackerToFirebase } = useTracker();
@@ -27,7 +28,7 @@ function DateRow({ tracker }: { tracker: Tracker }) {
   }, [tracker.startTime, tracker.endTime]);
 
   return (
-    <div>
+    <DateRowContainer>
       <DateSelector tracker={tracker} />
       <div>
         <span>start time</span>
@@ -49,7 +50,7 @@ function DateRow({ tracker }: { tracker: Tracker }) {
         <span>total hours</span>
         <span>{tracker.totalHours}</span>
       </div>
-    </div>
+    </DateRowContainer>
   );
 }
 

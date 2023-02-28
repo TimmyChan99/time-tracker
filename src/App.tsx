@@ -1,6 +1,7 @@
 import DateRow from './components/DateRow';
 import GlobalStyle from './styles/global.style';
 import { HeaderContainer, TitleContainer } from './styles/header.style';
+import { MainContainer } from './styles/main.style';
 import { useTracker } from './TrackerProvider';
 
 function App() {
@@ -21,11 +22,11 @@ function App() {
 
   return (
     <>
+      <GlobalStyle />
       <HeaderContainer>
         <TitleContainer>INMOGR</TitleContainer>
       </HeaderContainer>
-      <main>
-        <GlobalStyle />
+      <MainContainer>
         <button type="button" onClick={hanldleClick}>
           Add
         </button>
@@ -44,7 +45,7 @@ function App() {
             </p>
           </div>
         </footer>
-      </main>
+      </MainContainer>
     </>
   );
 }

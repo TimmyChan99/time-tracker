@@ -32,6 +32,17 @@ export const DateContainer = styled.div`
   input {
     display: ${({ isVisible }: { isVisible: boolean }) =>
       isVisible ? 'block' : 'none'};
+    border: #32a071 1px solid;
+    color: #32a071;
+    font-weight: 600;
+
+    &::-webkit-datetime-edit {
+      padding: 0 10px;
+    }
+
+    &::-webkit-datetime-edit-text {
+      color: #32a071;
+    }
   }
 
   h5 {
@@ -49,12 +60,9 @@ export const DateContainer = styled.div`
 `;
 
 export const SeletedDate = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  color: #32a071;
-  line-height: 18px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 
   button {
@@ -64,5 +72,12 @@ export const SeletedDate = styled.div`
     color: #b1b1b0;
     font-size: 15px;
     font-weight: 700;
+  }
+
+  button[id='date'] {
+    font-size: 12px;
+    font-weight: 400;
+    color: #32a071;
+    line-height: 18px;
   }
 `;

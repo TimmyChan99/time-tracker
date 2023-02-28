@@ -73,7 +73,7 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
         <button type="button" onClick={() => handleDateNavigation('prev')}>
           &lt;
         </button>
-        <button type="button" onClick={() => handleDateInput()}>
+        <button type="button" id="date" onClick={() => handleDateInput()}>
           {date}
         </button>
         <button type="button" onClick={() => handleDateNavigation('next')}>

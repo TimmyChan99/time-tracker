@@ -4,7 +4,7 @@ import TimeSelector from './TimeSelector';
 import { Tracker, useTracker } from '../TrackerProvider';
 
 function DateRow({ tracker }: { tracker: Tracker }) {
-  const { updateTracker } = useTracker();
+  const { updateTracker, addTrackerToFirebase } = useTracker();
 
   // Calculate total hours
   const totalHours = () => {
@@ -13,9 +13,11 @@ function DateRow({ tracker }: { tracker: Tracker }) {
     const total = endHour - startHour;
     if (total < 0) {
       updateTracker('totalHours', total + 24, tracker.id);
+      addTrackerToFirebase({ ...tracker, totalHours: total + 24 });
       return;
     }
     updateTracker('totalHours', total, tracker.id);
+    addTrackerToFirebase({ ...tracker, totalHours: total });
   };
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function DateRow({ tracker }: { tracker: Tracker }) {
 
   return (
     <div>
-      <DateSelector date={tracker.date} day={tracker.day} id={tracker.id} />
+      <DateSelector tracker={tracker} />
       <div>
         <span>start time</span>
         <TimeSelector

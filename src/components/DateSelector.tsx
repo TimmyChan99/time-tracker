@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from 'react';
-import { useTracker } from '../TrackerProvider';
+import { ChangeEvent } from 'react';
+import { Tracker, useTracker } from '../TrackerProvider';
 
 // yyyy-mm-dd format
 const dateConverter = (date: string) => {
@@ -27,22 +27,16 @@ const setDateandDay = (date: string) => {
 };
 
 // DateSelector component
-function DateSelector({
-  date,
-  day,
-  id,
-}: {
-  date: string;
-  day: string;
-  id: string;
-}) {
-  const { updateTracker } = useTracker();
+function DateSelector({ tracker }: { tracker: Tracker }) {
+  const { date, day, id } = tracker;
+  const { updateTracker, addTrackerToFirebase } = useTracker();
 
   // Collect date and day from input
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { dateString, dayString } = setDateandDay(e.target.value);
     updateTracker('date', dateString, id);
     updateTracker('day', dayString, id);
+    addTrackerToFirebase({ ...tracker, date: dateString, day: dayString });
   };
 
   // Navigate to next and previous dates
@@ -53,6 +47,7 @@ function DateSelector({
     const { dateString, dayString } = setDateandDay(currentDate.toString());
     updateTracker('date', dateString, id);
     updateTracker('day', dayString, id);
+    addTrackerToFirebase({ ...tracker, date: dateString, day: dayString });
   };
 
   return (

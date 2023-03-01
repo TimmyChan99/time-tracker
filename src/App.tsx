@@ -9,6 +9,7 @@ import {
   TotalFooter,
 } from './styles/main.style';
 import { useTracker } from './TrackerProvider';
+import { ReactComponent as Logo } from './images/logo.svg';
 
 function App() {
   const { addTracker, trackerList } = useTracker();
@@ -30,6 +31,7 @@ function App() {
     <>
       <GlobalStyle />
       <HeaderContainer>
+        <Logo />
         <TitleContainer>INMOGR</TitleContainer>
       </HeaderContainer>
       <Title>Time Tracker</Title>

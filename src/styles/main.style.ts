@@ -171,5 +171,9 @@ export const TotalFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 5px;
+
+  span:last-child {
+    font-weight: 500;
+  }
 }
 `;

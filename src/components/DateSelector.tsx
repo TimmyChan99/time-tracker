@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { DateContainer, SelectedDate } from '../styles/main.style';
 import { Tracker, useTracker } from '../TrackerProvider';
+import { ReactComponent as ArrowLeft } from '../images/chevron_left.svg';
+import { ReactComponent as ArrowRight } from '../images/chevron_right.svg';
 
 // yyyy-mm-dd format
 const dateConverter = (date: string) => {
@@ -71,13 +73,13 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
       />
       <SelectedDate>
         <button type="button" onClick={() => handleDateNavigation('prev')}>
-          &lt;
+          <ArrowLeft />
         </button>
         <button type="button" id="date" onClick={() => handleDateInput()}>
           {date}
         </button>
         <button type="button" onClick={() => handleDateNavigation('next')}>
-          &gt;
+          <ArrowRight />
         </button>
       </SelectedDate>
       <span>{day}</span>

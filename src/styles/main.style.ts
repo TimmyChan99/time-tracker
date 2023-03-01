@@ -113,12 +113,14 @@ export const TimeContainer = styled.div`
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     -webkit-appearance: none;
     appearance: none;
+    background: no-repeat right 10px center;
     outline-color: #32a071;
     scrollbar-width: none;
     -ms-overflow-style: none;
     ::-webkit-scrollbar {
       display: none;
     }
+    width: 130px;
   }
 `;
 

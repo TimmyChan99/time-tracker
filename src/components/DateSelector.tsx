@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { DateContainer, SeletedDate } from '../styles/main.style';
+import { DateContainer, SelectedDate } from '../styles/main.style';
 import { Tracker, useTracker } from '../TrackerProvider';
 
 // yyyy-mm-dd format
@@ -69,7 +69,7 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
         onChange={(e) => handleDateChange(e)}
         required
       />
-      <SeletedDate>
+      <SelectedDate>
         <button type="button" onClick={() => handleDateNavigation('prev')}>
           &lt;
         </button>
@@ -79,7 +79,7 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
         <button type="button" onClick={() => handleDateNavigation('next')}>
           &gt;
         </button>
-      </SeletedDate>
+      </SelectedDate>
       <span>{day}</span>
     </DateContainer>
   );

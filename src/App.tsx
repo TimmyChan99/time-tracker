@@ -1,7 +1,12 @@
 import DateRow from './components/DateRow';
 import GlobalStyle from './styles/global.style';
 import { HeaderContainer, TitleContainer } from './styles/header.style';
-import { MainContainer } from './styles/main.style';
+import {
+  AddButtonContainer,
+  FooterContainer,
+  MainContainer,
+  TotalFooter,
+} from './styles/main.style';
 import { useTracker } from './TrackerProvider';
 
 function App() {
@@ -26,25 +31,22 @@ function App() {
       <HeaderContainer>
         <TitleContainer>INMOGR</TitleContainer>
       </HeaderContainer>
+      <h1>Time Tracker</h1>
       <MainContainer>
-        <button type="button" onClick={hanldleClick}>
-          Add
-        </button>
+        <AddButtonContainer type="button" onClick={hanldleClick}>
+          Add New Date
+        </AddButtonContainer>
         <ul>{trackers.length === 0 ? 'no trakers' : trackers}</ul>
-        <footer>
-          <div>
-            <p>
-              <span>Total Day</span>
-              <span>{trackers.length} days</span>
-            </p>
-          </div>
-          <div>
-            <p>
-              <span>Total Hours</span>
-              <span>{totalHours} Hours</span>
-            </p>
-          </div>
-        </footer>
+        <FooterContainer>
+          <TotalFooter>
+            <span>Total Day</span>
+            <span>{trackers.length} days</span>
+          </TotalFooter>
+          <TotalFooter>
+            <span>Total Hours</span>
+            <span>{totalHours} Hours</span>
+          </TotalFooter>
+        </FooterContainer>
       </MainContainer>
     </>
   );

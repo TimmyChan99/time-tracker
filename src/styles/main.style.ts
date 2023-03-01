@@ -5,14 +5,17 @@ export const MainContainer = styled.main`
   margin: 120px auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
+  gap: 20px;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  padding: 20px;
+  padding: 40px 35px;
 
   ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   h5 {
@@ -27,7 +30,9 @@ export const DateRowContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding: 20px 0;
+  padding: 20px 0 25px 0;
+  border-bottom: 1px solid rgba(45, 167, 113, 0.5);
+  width: 100%;
 `;
 
 export const DateContainer = styled.div`
@@ -60,7 +65,7 @@ export const DateContainer = styled.div`
   }
 `;
 
-export const SeletedDate = styled.div`
+export const SelectedDate = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,4 +130,36 @@ export const TotalContainer = styled.div`
     width: 100%;
     text-align: center;
   }
+`;
+
+export const AddButtonContainer = styled.button`
+  text-align: center;
+  align-self: start;
+  background: #c7f0df;
+  border-radius: 5px;
+  border: none;
+  color: #00502e;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+`;
+
+export const FooterContainer = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ color: #00502e;
+ padding: 10px 0;
+ font-size: 14px;
+ font-weight: 400;
+ border-top: 1px solid rgba(45, 167, 113, 0.5);
+}
+`;
+
+export const TotalFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
 `;

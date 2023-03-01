@@ -21,7 +21,7 @@ type Tracker = {
 
 const trackerInitialValue = {
   id: '',
-  date: '',
+  date: new Date().toString().slice(0, 10),
   startTime: '',
   endTime: '',
   totalHours: 0,

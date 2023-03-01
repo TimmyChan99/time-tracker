@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 
+export const Title = styled.h1`
+  font-size: 16px;
+  font-weight: 500;
+  color: #32a071;
+  text-align: center;
+  padding: 0;
+  margin: 130px 0 0 0;
+`;
+
 export const MainContainer = styled.main`
   width: 80%;
-  margin: 120px auto;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -16,6 +25,7 @@ export const MainContainer = styled.main`
     list-style: none;
     padding: 0;
     margin: 0;
+    min-height: 600px;
   }
 
   h5 {

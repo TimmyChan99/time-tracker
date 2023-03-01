@@ -5,6 +5,7 @@ import {
   AddButtonContainer,
   FooterContainer,
   MainContainer,
+  Title,
   TotalFooter,
 } from './styles/main.style';
 import { useTracker } from './TrackerProvider';
@@ -31,7 +32,7 @@ function App() {
       <HeaderContainer>
         <TitleContainer>INMOGR</TitleContainer>
       </HeaderContainer>
-      <h1>Time Tracker</h1>
+      <Title>Time Tracker</Title>
       <MainContainer>
         <AddButtonContainer type="button" onClick={hanldleClick}>
           Add New Date

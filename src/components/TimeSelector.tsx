@@ -40,7 +40,7 @@ function TimeSelector({
         </option>
       ) : (
         <option value={+hourInput} hidden>
-          {hourInput}:00
+          {hourInput}:00 {+hourInput < 12 ? 'AM' : 'PM'}
         </option>
       )}
       {hours}

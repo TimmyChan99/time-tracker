@@ -1,5 +1,15 @@
 import DateRow from './components/DateRow';
+import GlobalStyle from './styles/global.style';
+import { HeaderContainer, TitleContainer } from './styles/header.style';
+import {
+  AddButtonContainer,
+  FooterContainer,
+  MainContainer,
+  Title,
+  TotalFooter,
+} from './styles/main.style';
 import { useTracker } from './TrackerProvider';
+import { ReactComponent as Logo } from './images/logo.svg';
 
 function App() {
   const { addTracker, trackerList } = useTracker();
@@ -18,26 +28,30 @@ function App() {
   }, 0);
 
   return (
-    <main>
-      <button type="button" onClick={hanldleClick}>
-        Add
-      </button>
-      <ul>{trackers.length === 0 ? 'no trakers' : trackers}</ul>
-      <footer>
-        <div>
-          <p>
+    <>
+      <GlobalStyle />
+      <HeaderContainer>
+        <Logo />
+        <TitleContainer>INMOGR</TitleContainer>
+      </HeaderContainer>
+      <Title>Time Tracker</Title>
+      <MainContainer>
+        <AddButtonContainer type="button" onClick={hanldleClick}>
+          Add New Date
+        </AddButtonContainer>
+        <ul>{trackers.length === 0 ? 'no trakers' : trackers}</ul>
+        <FooterContainer>
+          <TotalFooter>
             <span>Total Day</span>
             <span>{trackers.length} days</span>
-          </p>
-        </div>
-        <div>
-          <p>
+          </TotalFooter>
+          <TotalFooter>
             <span>Total Hours</span>
             <span>{totalHours} Hours</span>
-          </p>
-        </div>
-      </footer>
-    </main>
+          </TotalFooter>
+        </FooterContainer>
+      </MainContainer>
+    </>
   );
 }
 

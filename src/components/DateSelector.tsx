@@ -1,5 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { DateContainer, SelectedDate } from '../styles/main.style';
 import { Tracker, useTracker } from '../TrackerProvider';
+import { ReactComponent as ArrowLeft } from '../images/chevron_left.svg';
+import { ReactComponent as ArrowRight } from '../images/chevron_right.svg';
 
 // yyyy-mm-dd format
 const dateConverter = (date: string) => {
@@ -31,12 +34,20 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
   const { date, day, id } = tracker;
   const { updateTracker, addTrackerToFirebase } = useTracker();
 
+  // Show date input on click
+  const [showDateInput, setShowDateInput] = useState<boolean>(false);
+
+  const handleDateInput = () => {
+    setShowDateInput((prev) => !prev);
+  };
+
   // Collect date and day from input
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { dateString, dayString } = setDateandDay(e.target.value);
     updateTracker('date', dateString, id);
     updateTracker('day', dayString, id);
     addTrackerToFirebase({ ...tracker, date: dateString, day: dayString });
+    handleDateInput();
   };
 
   // Navigate to next and previous dates
@@ -51,10 +62,8 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
   };
 
   return (
-    <div>
-      <button type="button" onClick={() => handleDateNavigation('prev')}>
-        prev
-      </button>
+    <DateContainer isVisible={showDateInput}>
+      <h5>Date</h5>
       <input
         type="date"
         name="date"
@@ -62,12 +71,19 @@ function DateSelector({ tracker }: { tracker: Tracker }) {
         onChange={(e) => handleDateChange(e)}
         required
       />
-      <button type="button" onClick={() => handleDateNavigation('next')}>
-        next
-      </button>
-      <div>{date}</div>
-      <div>{day}</div>
-    </div>
+      <SelectedDate>
+        <button type="button" onClick={() => handleDateNavigation('prev')}>
+          <ArrowLeft />
+        </button>
+        <button type="button" id="date" onClick={() => handleDateInput()}>
+          {date}
+        </button>
+        <button type="button" onClick={() => handleDateNavigation('next')}>
+          <ArrowRight />
+        </button>
+      </SelectedDate>
+      <span>{day}</span>
+    </DateContainer>
   );
 }
 

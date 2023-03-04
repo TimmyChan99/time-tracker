@@ -1,4 +1,5 @@
 import { useTracker } from '../TrackerProvider';
+import DownArrow from '../images/arrow_drop_down.svg';
 
 function TimeSelector({
   timeType,
@@ -28,14 +29,18 @@ function TimeSelector({
   };
 
   return (
-    <select required onChange={(e) => handleChange(e)}>
+    <select
+      required
+      onChange={(e) => handleChange(e)}
+      style={{ backgroundImage: `url(${DownArrow})` }}
+    >
       {hourInput === '' ? (
         <option value="none" hidden>
           Select time
         </option>
       ) : (
         <option value={+hourInput} hidden>
-          {hourInput}:00
+          {hourInput}:00 {+hourInput < 12 ? 'AM' : 'PM'}
         </option>
       )}
       {hours}

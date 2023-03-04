@@ -7,6 +7,7 @@ export const Title = styled.h1`
   text-align: center;
   padding: 0;
   margin: 130px 0 0 0;
+  width: 100%;
 `;
 
 export const MainContainer = styled.main`
@@ -34,6 +35,10 @@ export const MainContainer = styled.main`
     font-weight: 400;
     margin: 0;
   }
+
+  @media (max-width: 823px) {
+    width: 100%;
+  }
 `;
 
 export const DateRowContainer = styled.div`
@@ -43,6 +48,12 @@ export const DateRowContainer = styled.div`
   padding: 20px 0 25px 0;
   border-bottom: 1px solid rgba(45, 167, 113, 0.5);
   width: 100%;
+
+  @media (max-width: 823px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 `;
 
 export const DateContainer = styled.div`
